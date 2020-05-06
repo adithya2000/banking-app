@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'screen2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-void main()=>runApp(MyApp2(text: null,));
+void main()=>runApp(MyApp2());
+
 
 
 class MyApp2 extends StatefulWidget {
@@ -12,9 +13,10 @@ class MyApp2 extends StatefulWidget {
   _MyApp2State createState() => _MyApp2State();
 }
 
+
 class _MyApp2State extends State<MyApp2> {
   var user,bal,pass;
-  double payable,interest,week_pay;
+  double payable,interest,week_pay,paid=0;
   String u_name,p_word,balance;
   @override
   void initState(){
@@ -37,6 +39,7 @@ class _MyApp2State extends State<MyApp2> {
     week_pay=(payable/(double.parse(months.text)*4));
     String _payable=payable.toString();
     String _week_pay = week_pay.toString();
+    String _paid = paid.toString();
 
 //    http.Response response = await http.get(url1,headers: {"Accept":"application/json"});
 //    var user_json=json.decode(response.body);
@@ -51,6 +54,7 @@ class _MyApp2State extends State<MyApp2> {
       "balance" : bal,
       "loan_principle":princ,
       "loan_payable":_payable,
+      "loan_paid":_paid,
     };
     String _body=json.encode(body);
     final http.Response response = await http.post(url,headers:{"Content-Type": "application/json"},body:_body,);
@@ -62,6 +66,7 @@ class _MyApp2State extends State<MyApp2> {
     print(response.headers);
     return;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +94,10 @@ class _MyApp2State extends State<MyApp2> {
                       hintText: 'Enter the time period needed(in months)',
                       icon: Icon(Icons.access_time)
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Interest amounts to Rs ${interest}',style: TextStyle(fontSize: 15)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -126,6 +135,3 @@ class _MyApp2State extends State<MyApp2> {
     );
   }
 }
-
-
-

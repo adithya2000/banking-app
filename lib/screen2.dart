@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:image_picker/image_picker.dart';
 import 'main.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'loan.dart';
 import 'payloan.dart';
 import 'dart:convert';
 import 'grp_reg.dart';
+import 'addtogroup.dart';
 
 
 void main()=>runApp(MyApp1(text: null,));
@@ -53,6 +54,19 @@ class _MyApp1State extends State<MyApp1> {
     print(r.headers);
     return ;
   }
+  var dataJson;
+  Future<String> getGroups()async{
+    String url = "http://10.0.2.2:4000/";
+    print(url);
+
+    Response response = await http.get(url,headers: {"Accept":"application/json"});
+    print(response.headers);
+    setState(() {
+      dataJson = json.decode(response.body);
+      print(dataJson);
+    });
+    return " Successful";
+  }
 
   /*Future getImage(var user)async{
     String url = "http://10.0.2.2:4000/image/"+user;
@@ -70,7 +84,6 @@ class _MyApp1State extends State<MyApp1> {
     var res = await request.send();
     return res.reasonPhrase;
   }*/
-  String state = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +92,7 @@ class _MyApp1State extends State<MyApp1> {
           child: Column(
             children: <Widget>[
               Text(
-                user + " logged in...url",
+                user + " logged in...",
                 textAlign: TextAlign.center,
               ),
               Text(bal + " is ${user}'s current balance"),
@@ -121,6 +134,25 @@ class _MyApp1State extends State<MyApp1> {
                       Navigator.push(context,MaterialPageRoute(
                           builder: (BuildContext context)=>
                           GrpReg(text:data)
+                      ));
+                    });
+                  }
+                  else{
+                    print(user);
+                  }
+
+                },
+              ),
+              RaisedButton(
+                child: Text('Add user to Group(Admin)'),
+                onPressed: (){
+                  if(user=='aswin'){
+                    setState(() {
+                      getGroups();
+                      Map<String,dynamic> d=(jsonDecode(dataJson[0]) as Map<String,String>);
+                      Navigator.push(context,MaterialPageRoute(
+                          builder: (BuildContext context)=>
+                              ATG(text:d)
                       ));
                     });
                   }
