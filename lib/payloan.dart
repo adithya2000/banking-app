@@ -4,7 +4,7 @@ import 'screen2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'loan.dart';
-void main()=>runApp(MyApp3());
+void main()=>runApp(MyApp3(text: null,));
 
 class MyApp3 extends StatefulWidget {
   var text;
@@ -15,7 +15,7 @@ class MyApp3 extends StatefulWidget {
   _MyApp3State createState() => _MyApp3State();
 }
 
-  class _MyApp3State extends State<MyApp3> {
+class _MyApp3State extends State<MyApp3> {
   double paid=0.0,week_pay=0.0, ipayable=0.0;
   var user,bal,pass;
   static var interest=0.0;
@@ -23,11 +23,11 @@ class MyApp3 extends StatefulWidget {
 
   @override
   void initState(){
-  user = widget.text[0]['username'];
-  bal =  widget.text[0]['balance'];
-  pass = widget.text[0]['password'];
+    user = widget.text[0]['username'];
+    bal =  widget.text[0]['balance'];
+    pass = widget.text[0]['password'];
 
-  super.initState();
+    super.initState();
   }
   Future payDue() async{
     var data = widget.text[0];
@@ -74,16 +74,12 @@ class MyApp3 extends StatefulWidget {
       String _princ = princ.toString();
       pay(_princ,_payable,_paid);
 
-    /*String princ= (payable - interest).toString();
-
-
+      /*String princ= (payable - interest).toString();
     print(url);
     String _payable=payable.toString();
     String _paid = paid.toString();
-
-
     */
-  });
+    });
   }
 
   Future pay(String p, String p1, String p2) async{
@@ -157,5 +153,4 @@ class MyApp3 extends StatefulWidget {
       ),
     );
   }
-  }
-
+}

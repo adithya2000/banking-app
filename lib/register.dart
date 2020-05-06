@@ -76,28 +76,28 @@ class _registerMembersState extends State<registerMembers> {
                 )),
             //Password
             Padding(
-                padding: EdgeInsets.only(
-                    top: _minimumPadding + 4,
-                    bottom: _minimumPadding,
-                    left: _minimumPadding,
-                    right: _minimumPadding),
-                child: TextFormField(
-                  autovalidate: true,
-                  style: textStyle,
-                  controller: passController,
-                  validator: (pass) =>
-                  pass.isEmpty ? 'Please enter a valid password!' : null,
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      hintText: 'Enter the password',
-                      labelStyle: textStyle,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0))
+              padding: EdgeInsets.only(
+                  top: _minimumPadding + 4,
+                  bottom: _minimumPadding,
+                  left: _minimumPadding,
+                  right: _minimumPadding),
+              child: TextFormField(
+                autovalidate: true,
+                style: textStyle,
+                controller: passController,
+                validator: (pass) =>
+                pass.isEmpty ? 'Please enter a valid password!' : null,
+                decoration: InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Enter the password',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0))
 
-                  ),
-                  autofocus: false,
-                  obscureText: true,
                 ),
+                autofocus: false,
+                obscureText: true,
+              ),
 
             ),
 
@@ -196,8 +196,8 @@ class _registerMembersState extends State<registerMembers> {
     var url = "http://10.0.2.2:4000/register";
 
     Map<String,String> body = {
-    "username": Uname,
-    "password": pass,
+      "username": Uname,
+      "password": pass,
     };
     Response r = await post(url, body: body);
   }
