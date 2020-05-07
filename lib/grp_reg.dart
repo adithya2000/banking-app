@@ -1,8 +1,10 @@
+import 'package:bankingsample/group_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'screen2.dart';
+import 'addtogroup.dart';
 void main()=>runApp(GrpReg(text:null));
 class GrpReg extends StatefulWidget {
   var text;
@@ -67,7 +69,7 @@ class _GrpRegState extends State<GrpReg> {
       "ward":ward.text
     };
     var r = await http.post(url, body: body);
-
+    print(_district);
     if(r.statusCode == 200){
       setState(() {
       });
@@ -95,7 +97,7 @@ class _GrpRegState extends State<GrpReg> {
   register();
   Navigator.push(context,MaterialPageRoute(
       builder: (BuildContext context)=>
-          MyApp1(text:data),
+          Group(),
   ));//  Navigator.push(context, MaterialPageRoute(
 //  builder: (BuildContext context) => MyApp1(text:null),
 //  ));

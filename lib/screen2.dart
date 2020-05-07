@@ -1,3 +1,4 @@
+import 'package:bankingsample/group_functions.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'main.dart';
@@ -54,19 +55,13 @@ class _MyApp1State extends State<MyApp1> {
     print(r.headers);
     return ;
   }
-  var dataJson;
-  Future<String> getGroups()async{
-    String url = "http://10.0.2.2:4000/";
-    print(url);
 
-    Response response = await http.get(url,headers: {"Accept":"application/json"});
-    print(response.headers);
-    setState(() {
-      dataJson = json.decode(response.body);
-      print(dataJson);
-    });
-    return " Successful";
-  }
+
+
+
+                //  Navigator.push(context, MaterialPageRoute(
+//  builder: (BuildContext context) => MyApp1(text:null),
+//  ));
 
   /*Future getImage(var user)async{
     String url = "http://10.0.2.2:4000/image/"+user;
@@ -126,33 +121,15 @@ class _MyApp1State extends State<MyApp1> {
                   });
                 },
               ),
-              RaisedButton(
-                child: Text('Group Register(Admin)'),
-                onPressed: (){
-                  if(user=='aswin'){
-                    setState(() {
-                      Navigator.push(context,MaterialPageRoute(
-                          builder: (BuildContext context)=>
-                          GrpReg(text:data)
-                      ));
-                    });
-                  }
-                  else{
-                    print(user);
-                  }
 
-                },
-              ),
               RaisedButton(
-                child: Text('Add user to Group(Admin)'),
+                child: Text('Groups'),
                 onPressed: (){
                   if(user=='aswin'){
                     setState(() {
-                      getGroups();
-                      Map<String,dynamic> d=(jsonDecode(dataJson[0]) as Map<String,String>);
                       Navigator.push(context,MaterialPageRoute(
-                          builder: (BuildContext context)=>
-                              ATG(text:d)
+                        builder: (BuildContext context)=>
+                            Group(),
                       ));
                     });
                   }
