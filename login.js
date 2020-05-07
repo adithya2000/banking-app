@@ -73,7 +73,7 @@ app.post('/register',function(req,res){
   });
 })
 app.get('/',function(req,res){
-	conn.query('SELECT group_id FROM group_reg',function(error,rows,fields){
+	conn.query('SELECT * FROM group_reg',function(error,rows,fields){
 		if(!!error)
 		console.log('Error');
 		else {
