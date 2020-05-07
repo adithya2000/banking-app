@@ -82,17 +82,7 @@ app.get('/',function(req,res){
 		}
 	});
 })
-app.post('/atg/:username',function(req,res){
-  var postData=req.body;
-  conn.query('UPDATE User SET group_id=? WHERE username=?',[req.body.group_id,req.body.username],postData,function(error,rows,fields){
-    if(!!error){
-      console.log(error);
-    }
-    else{
-      res.send(JSON.stringify(rows));
-    }
-  });
-})
+
 app.post('/grpreg',function(req,res){
   var postData=req.body;
   conn.query('INSERT INTO group_reg SET ?',postData,function(error,rows,fields){
@@ -135,7 +125,16 @@ app.post('/loan/:username',function(req,resp){
 			}
 	});
 })
-
+app.post('/atg/:username',function(req,res){
+  conn.query('UPDATE User SET group_id = ? WHERE username = ?',[req.body.group_id,req.params.username],function(error,rows,fields){
+    if(!!error){
+      console.log(error);
+    }
+    else{
+      res.send(JSON.stringify(rows));
+    }
+  });
+})
 app.post('/pay/:username',function(req,resp){
 	//console.log(req.body);
 	conn.query('UPDATE User SET loan_payable = ?, loan_paid = ? WHERE username = ?',[req.body.loan_payable,req.body.loan_paid,req.params.username],
