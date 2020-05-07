@@ -1,3 +1,4 @@
+import 'package:bankingsample/group_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -6,7 +7,7 @@ import 'dart:async';
 import 'screen2.dart';
 import 'grp_reg.dart';
 
-void main()=>runApp(ATG());
+void main()=>runApp(ATG(text:null));
 
 class ATG extends StatefulWidget {
   var text;
@@ -21,9 +22,41 @@ class _ATG extends State<ATG> {
   void initState() {
     data = widget.text;
     super.initState();
-
+    getGroups();
 
   }
+  static List<String> s=[""];
+  var dataJson=[];
+  String groupid = null;
+  List<String> _groupid ;
+  Future<String> getGroups()async{
+    print(dataJson.isEmpty);
+
+    String url = "http://10.0.2.2:4000/";
+    print(url);
+
+    Response response = await http.get(url,headers: {"Accept":"application/json"});
+    print(response.headers);
+    setState(() {
+      dataJson = json.decode(response.body);
+      print(dataJson);
+      //print(dataJson.length);
+      if(dataJson!=null){
+        s=[dataJson[0]['group_id']];
+        for(int i=1;i<dataJson.length;i++){
+          if(dataJson[i]['group_id']!='0'){
+            s.add(dataJson[i]['group_id']);
+          }
+        }s.cast<String>();
+        print(s);
+        _groupid=s;
+        print(_groupid);
+      }
+    });
+    return " Successful";
+  }
+
+
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -33,17 +66,15 @@ class _ATG extends State<ATG> {
   }
 
   TextEditingController uname = TextEditingController();
-  String groupid = null;
-  List<String> _groupid = (jsonDecode(data) as List<dynamic>).cast<String>();
-
 
 
 
   Future add(String user) async {
-    String uri = "http://10.0.2.2:4000/atg";
-    final path = "/"+user;
+    final uri = "10.0.2.2:4000";
+    final path = "/atg/"+user;
     final url= Uri.http(uri,path);
 
+    print(url);
     Map<String, String> body = {
       "username":uname.text,
       "group_id":groupid,
@@ -54,6 +85,7 @@ class _ATG extends State<ATG> {
       setState(() {
       });
     }
+    print(body);
     print(r.headers);
     return ;
 
@@ -77,7 +109,7 @@ class _ATG extends State<ATG> {
                 add(uname.text);
                 Navigator.push(context,MaterialPageRoute(
                   builder: (BuildContext context)=>
-                      MyApp1(text:data),
+                      Group(),
                 ));//  Navigator.push(context, MaterialPageRoute(
 //  builder: (BuildContext context) => MyApp1(text:null),
 //  ));

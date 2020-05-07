@@ -4,7 +4,7 @@ import 'screen2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'loan.dart';
-void main()=>runApp(MyApp3());
+void main()=>runApp(MyApp3(text:null));
 
 class MyApp3 extends StatefulWidget {
   var text;

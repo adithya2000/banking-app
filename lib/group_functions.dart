@@ -18,29 +18,7 @@ class Group extends StatefulWidget {
 
 class _Group extends State<Group> {
 
-  List<String> s=[""];
-  var dataJson=[];
-  Future<String> getGroups()async{
-    String url = "http://10.0.2.2:4000/";
-    print(url);
 
-    Response response = await http.get(url,headers: {"Accept":"application/json"});
-    print(response.headers);
-    setState(() {
-      dataJson = json.decode(response.body);
-      //print(dataJson.length);
-      if(dataJson!=null){
-        s=[dataJson[0]['group_id']];
-        for(int i=1;i<dataJson.length;i++){
-          if(dataJson[i]['group_id']!='0'){
-            s.add(dataJson[i]['group_id']);
-          }
-        }s.cast<String>();
-        print(s);
-      }
-    });
-    return " Successful";
-  }
 
 
   @override
@@ -72,10 +50,10 @@ class _Group extends State<Group> {
               RaisedButton(child: Text('Add user to Group'),
                 onPressed: (){
                   setState(() {
-                        getGroups();
+
                         Navigator.push(context,MaterialPageRoute(
                           builder: (BuildContext context)=>
-                              ATG(text:s),
+                          ATG(),
                         ));
 
 

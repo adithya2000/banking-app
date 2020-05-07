@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'screen2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-void main()=>runApp(MyApp2());
+void main()=>runApp(MyApp2(text:null));
 
 
 
