@@ -3,23 +3,27 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:async';
+import 'migrate.dart';
+import 'screen2.dart' as screen2;
 import 'screen2.dart';
 import 'grp_reg.dart';
 import 'addtogroup.dart';
 
-void main()=>runApp(Group());
+void main()=>runApp(Group(text:null));
 
 class Group extends StatefulWidget {
-
-
+  var text;
+  Group({Key key, @required this.text}) : super(key: key);
   @override
   _Group createState() => _Group();
 }
-
+var data;
 class _Group extends State<Group> {
-
-
-
+  @override
+  void initState() {
+    data = widget.text;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +33,19 @@ class _Group extends State<Group> {
           child: Column(
             children: <Widget>[
               Text(
-                 "You are a group admin: " ,
+                "You are a group admin: " ,
                 textAlign: TextAlign.center,
               ),
               RaisedButton(
                 child: Text('Group Register(Admin)'),
                 onPressed: (){
 
-                    setState(() {
-                      Navigator.push(context,MaterialPageRoute(
-                        builder: (BuildContext context)=>
-                            GrpReg(),
-                      ));
-                    });
+                  setState(() {
+                    Navigator.push(context,MaterialPageRoute(
+                      builder: (BuildContext context)=>
+                          GrpReg(),
+                    ));
+                  });
 
 
 
@@ -51,15 +55,39 @@ class _Group extends State<Group> {
                 onPressed: (){
                   setState(() {
 
-                        Navigator.push(context,MaterialPageRoute(
-                          builder: (BuildContext context)=>
-                          ATG(),
-                        ));
+                    Navigator.push(context,MaterialPageRoute(
+                      builder: (BuildContext context)=>
+                          ATG(text: null,),
+                    ));
 
 
 
                   });
-                },)
+                },),
+              RaisedButton(
+                child: Text('Migrate'),
+                onPressed: (){
+                  setState(() {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>
+                      Migrate(text:data)
+                    ));
+                  });
+                },
+              ),
+              RaisedButton(
+                child: Text('Go Back'),
+                onPressed: (){
+                  setState(() {
+                    print(screen2.data);
+                    List<dynamic> u = screen2.data ;
+                    print(u);
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>
+                        MyApp1(text: u)
+                    ));
+                  });
+                },
+              ),
+
             ],
           )
       ),

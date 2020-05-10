@@ -20,9 +20,9 @@ class MyApp1 extends StatefulWidget {
   @override
   _MyApp1State createState() => _MyApp1State();
 }
-
+var data;
 class _MyApp1State extends State<MyApp1> {
-  var user, bal,data;
+  var user,bal;
   @override
   void initState(){
     user = widget.text[0]['username'];
@@ -129,7 +129,7 @@ class _MyApp1State extends State<MyApp1> {
                     setState(() {
                       Navigator.push(context,MaterialPageRoute(
                         builder: (BuildContext context)=>
-                            Group(),
+                            Group(text:user),
                       ));
                     });
                   }

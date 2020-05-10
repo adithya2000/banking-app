@@ -230,7 +230,13 @@ class _GrpRegState extends State<GrpReg> {
                     'Please fix the errors in red before submitting.');
               }
             });
-          },)
+          },),
+          RaisedButton(child: Text('Back'),
+            onPressed: (){
+              setState(() {
+                Navigator.of(context).pop();
+              });
+            },)
         ],
       )),
     );
