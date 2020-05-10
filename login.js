@@ -126,6 +126,7 @@ app.post('/loan/:username',function(req,resp){
 	});
 })
 app.post('/atg/:username',function(req,res){
+	console.log(req.body);
   conn.query('UPDATE User SET group_id = ? WHERE username = ?',[req.body.group_id,req.params.username],function(error,rows,fields){
     if(!!error){
       console.log(error);
@@ -145,6 +146,17 @@ app.post('/pay/:username',function(req,resp){
 				resp.json(rows);
 			}
 	});
+})
+app.post('/migrate/:username',function(req,res){
+  var postData=req.body;
+  conn.query('UPDATE User SET group_id=? WHERE username=?',[req.body.group_id,req.body.username],function(error,rows,fields){
+    if(!!error){
+      console.log(error);
+    }
+    else{
+      res.send(JSON.stringify(rows));
+    }
+  });
 })
 
 app.post('/',function(req,resp){
