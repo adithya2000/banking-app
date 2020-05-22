@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'loan.dart';
 import 'payloan.dart';
+import 'cluster_functions.dart';
 import 'dart:convert';
 import 'grp_reg.dart';
 import 'addtogroup.dart';
@@ -125,11 +126,28 @@ class _MyApp1State extends State<MyApp1> {
               RaisedButton(
                 child: Text('Groups'),
                 onPressed: (){
-                  if(user=='aswin'){
+                  if(user=='aswin'|| user=='adithya'){
                     setState(() {
                       Navigator.push(context,MaterialPageRoute(
                         builder: (BuildContext context)=>
                             Group(text:user),
+                      ));
+                    });
+                  }
+                  else{
+                    print(user);
+                  }
+
+                },
+              ),
+              RaisedButton(
+                child: Text('Clusters'),
+                onPressed: (){
+                  if(user=='aswin'||user=='adithya'){
+                    setState(() {
+                      Navigator.push(context,MaterialPageRoute(
+                        builder: (BuildContext context)=>
+                            Cluster(text:user),
                       ));
                     });
                   }

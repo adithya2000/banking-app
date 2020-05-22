@@ -7,23 +7,24 @@ import 'migrate.dart';
 import 'screen2.dart' as screen2;
 import 'screen2.dart';
 import 'grp_reg.dart';
-import 'addtogroup.dart';
+import 'cluster_reg.dart';
+import 'addtocluster.dart';
+import 'MigrateGroups.dart';
 
-void main()=>runApp(Group(text:null));
+void main()=>runApp(Cluster(text:null));
 
-class Group extends StatefulWidget {
+class Cluster extends StatefulWidget {
   var text;
-  Group({Key key, @required this.text}) : super(key: key);
+  Cluster({Key key, @required this.text}) : super(key: key);
   @override
-  _Group createState() => _Group();
+  _Cluster createState() => _Cluster();
 }
 var data;
-class _Group extends State<Group> {
+class _Cluster extends State<Cluster> {
   @override
   void initState() {
     data = widget.text;
     super.initState();
-    print(data);
   }
 
   @override
@@ -34,17 +35,17 @@ class _Group extends State<Group> {
           child: Column(
             children: <Widget>[
               Text(
-                "You are a group admin: " ,
+                "You are a Cluster admin: " ,
                 textAlign: TextAlign.center,
               ),
               RaisedButton(
-                child: Text('Group Register(Admin)'),
+                child: Text('Create Cluster'),
                 onPressed: (){
 
                   setState(() {
                     Navigator.push(context,MaterialPageRoute(
                       builder: (BuildContext context)=>
-                          GrpReg(),
+                          ClsReg(),
                     ));
                   });
 
@@ -52,29 +53,29 @@ class _Group extends State<Group> {
 
                 },
               ),
-              RaisedButton(child: Text('Add user to Group'),
+              RaisedButton(child: Text('Add groups to a cluster'),
                 onPressed: (){
                   setState(() {
 
                     Navigator.push(context,MaterialPageRoute(
                       builder: (BuildContext context)=>
-                          ATG(text: null,),
+                          ATC(text: null,),
                     ));
-
-
 
                   });
                 },),
-              RaisedButton(
-                child: Text('Migrate'),
+              RaisedButton(child: Text('Migrate groups between clusters'),
                 onPressed: (){
                   setState(() {
-                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>
-                      Migrate(text:data)
+
+                    Navigator.push(context,MaterialPageRoute(
+                      builder: (BuildContext context)=>
+                          MG(text: null,),
                     ));
+
                   });
-                },
-              ),
+                },),
+
               RaisedButton(
                 child: Text('Go Back'),
                 onPressed: (){
