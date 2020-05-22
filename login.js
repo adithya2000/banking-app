@@ -61,6 +61,25 @@ app.get('/:username',function(req,resp){
 	});
 })
 
+app.get('/cr/:group_id',function(req,resp){
+	conn.query('SELECT * FROM group_reg WHERE group_id =?',[req.params.group_id],
+		function(error,rows,fields){
+			if(!!error)
+				console.log('Error');
+			else{
+				resp.json(rows);
+			}
+	});
+})
+app.get('/atc/clusters',function(req,resp){
+	conn.query('SELECT DISTINCT cluster_id FROM group_reg',function(error,rows,fields){
+			if(!!error)
+				console.log('Error');
+			else{
+				resp.json(rows);
+			}
+	});
+})
 app.post('/register',function(req,res){
   var postData=req.body;
   conn.query('INSERT INTO User SET ?',postData,function(error,rows,fields){
@@ -128,6 +147,17 @@ app.post('/loan/:username',function(req,resp){
 app.post('/atg/:username',function(req,res){
 	console.log(req.body);
   conn.query('UPDATE User SET group_id = ? WHERE username = ?',[req.body.group_id,req.params.username],function(error,rows,fields){
+    if(!!error){
+      console.log(error);
+    }
+    else{
+      res.send(JSON.stringify(rows));
+    }
+  });
+})
+app.post('/cr/:group_id',function(req,res){
+	console.log(req.body);
+  conn.query('UPDATE group_reg SET cluster_id = ? WHERE group_id = ?',[req.body.cluster_id,req.params.group_id],function(error,rows,fields){
     if(!!error){
       console.log(error);
     }
